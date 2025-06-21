@@ -1,0 +1,253 @@
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #1f4037, #99f2c8);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 1rem;
+}
+
+/* Container */
+.container {
+  max-width: 900px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 1.2s ease forwards;
+}
+
+/* Heading */
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  user-select: none;
+}
+
+/* Progress Tracker */
+.progress-tracker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  background: #0f4033;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  user-select: none;
+}
+
+.stage {
+  font-size: 1rem;
+  opacity: 0.4;
+  transition: opacity 0.4s ease, transform 0.3s ease;
+  cursor: default;
+  margin: 0.2rem 0.5rem;
+  flex: 1 1 auto;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.stage.active {
+  opacity: 1;
+  font-weight: 700;
+  transform: scale(1.1);
+  color: #00c6a2;
+}
+
+/* Sections */
+.section {
+  margin-bottom: 2rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Inputs, selects, textareas */
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: #2c3e50;
+  color: #eee;
+  transition: background-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  background-color: #3a5068;
+  color: #fff;
+}
+
+/* Textarea specifics */
+textarea {
+  height: 160px;
+  resize: vertical;
+  line-height: 1.5;
+  font-family: monospace, monospace;
+}
+
+textarea[readonly] {
+  background-color: #34495e;
+  color: #ccc;
+  cursor: default;
+}
+
+textarea::placeholder {
+  color: #777;
+}
+
+/* Buttons */
+button {
+  display: inline-block;
+  padding: 0.75rem 1.8rem;
+  background-color: #00c6a2;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  user-select: none;
+  margin-top: 0.5rem;
+}
+
+button:hover,
+button:focus {
+  background-color: #00a388;
+  transform: scale(1.05);
+  outline: none;
+}
+
+/* Lists */
+ul {
+  list-style: none;
+  padding-left: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  border-radius: 10px;
+  background-color: #2c3e50;
+  margin-top: 0.5rem;
+  user-select: none;
+}
+
+ul li {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #3a5068;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+ul li:last-child {
+  border-bottom: none;
+}
+
+ul li:hover,
+ul li.selected {
+  background-color: #00c6a2;
+  color: #000;
+  font-weight: 700;
+}
+
+/* Audio player */
+audio {
+  width: 100%;
+  margin-top: 0.5rem;
+  border-radius: 10px;
+  background-color: #2c3e50;
+}
+
+/* Loader for video generation */
+.loader {
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #2c3e50;
+  color: #00c6a2;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 1rem;
+  animation: pulse 1.5s infinite;
+}
+
+/* Video player */
+video {
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: 10px;
+}
+
+/* Download link */
+#downloadLink {
+  display: block;
+  color: #00c6a2;
+  margin-top: 1rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+}
+
+#downloadLink:hover {
+  text-decoration: underline;
+  color: #00f5c3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .progress-tracker {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .stage {
+    flex: none;
+    width: 100%;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}

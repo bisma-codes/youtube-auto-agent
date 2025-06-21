@@ -1,0 +1,12 @@
+flask
+python-dotenv
+groq
+gtts
+requests
+google-api-python-client
+google-auth-oauthlib
+moviepy>=1.0.3
+imageio>=2.31.0
+imageio-ffmpeg>=0.4.8
+numpy>=1.25.0
+Pillow>=10.0.0

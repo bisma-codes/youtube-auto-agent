@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>YouTube Auto Agent</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem 1rem;
+      font-family: Arial, sans-serif;
+      background-color: #0f0f0f;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      background-color: #181818;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: #FF0000;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .progress-tracker {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      background: #212121;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+    }
+
+    .stage {
+      opacity: 0.4;
+      transition: 0.3s;
+      flex: 1;
+      text-align: center;
+      color: #aaa;
+    }
+
+    .stage.active {
+      opacity: 1;
+      color: #FF0000;
+      font-weight: bold;
+    }
+
+    .step {
+      display: none;
+      margin-top: 1.5rem;
+      animation: slideUp 0.5s ease-in-out;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type="text"], select, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: none;
+      background: #303030;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      padding: 0.8rem 1.6rem;
+      background: #FF0000;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    button.exit {
+      background: #606060;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      background: #303030;
+      border-radius: 10px;
+    }
+
+    ul li {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid #444;
+      cursor: pointer;
+    }
+
+    ul li:hover, ul li.selected {
+      background: #FF0000;
+      color: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 150px;
+    }
+
+    audio, video {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 1rem;
+    }
+
+    #videoPlayer {
+      max-height: 280px;
+    }
+
+    #loader {
+      text-align: center;
+      margin-top: 1rem;
+      background: #303030;
+      padding: 1rem;
+      border-radius: 10px;
+      display: none;
+      animation: pulse 1.5s infinite;
+      color: #FF0000;
+      font-weight: bold;
+    }
+
+    #downloadLink {
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+      color: #FF0000;
+    }
+
+    #uploadSuccess {
+      display: none;
+      background: #1e1e1e;
+      border: 2px solid #FF0000;
+      padding: 1rem;
+      margin-top: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    /* Responsive adjustments for progress tracker */
+    @media (max-width: 600px) {
+      .progress-tracker {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .stage {
+        flex: none;
+        width: 100%;
+      }
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>YouTube Auto-Agent 🎬</h1>
+    <div class="progress-tracker">
+      <span class="stage" id="stage-idea">🧠 Idea</span>
+      <span class="stage" id="stage-variation">✨ Variation</span>
+      <span class="stage" id="stage-script">📜 Script</span>
+      <span class="stage" id="stage-audio">🔊 Audio</span>
+      <span class="stage" id="stage-video">🎥 Video</span>
+      <span class="stage" id="stage-seo">🔍 SEO</span>
+      <span class="stage" id="stage-upload">📤 Upload</span>
+    </div>
+
+    <div class="step step-idea">
+      <label>Enter Topic:</label>
+      <input type="text" id="topicInput" placeholder="e.g. AI in 2025">
+      <button onclick="generateTrendingTitles()">Get Trending Titles</button>
+      <button class="exit" onclick="setStageActive('stage-idea')">Exit</button>
+    </div>
+
+    <div class="step step-variation">
+      <label>Select a Trending Title:</label>
+      <ul id="trendingTitles"></ul>
+    </div>
+
+    <div class="step step-script">
+      <label>Select a Unique Video Idea:</label>
+      <ul id="variationIdeas"></ul>
+    </div>
+
+    <div class="step step-audio">
+      <label>Generated Script:</label>
+      <textarea id="scriptPreview" readonly></textarea>
+      <label>Select Voice:</label>
+      <select id="voiceSelector"></select>
+      <button onclick="generateAudio()">Generate Audio</button>
+      <audio id="audioPlayer" controls style="display:none;"></audio>
+    </div>
+
+    <div class="step step-video">
+      <button onclick="generateVideo()">Generate Video</button>
+      <video id="videoPlayer" controls style="display:none;"></video>
+      <a id="downloadLink" style="display:none;" download>⬇ Download Video</a>
+    </div>
+
+    <div class="step step-seo">
+      <button onclick="optimizeSEO()">Optimize SEO</button>
+      <textarea id="seoOutput" readonly placeholder="SEO-optimized data appears here..."></textarea>
+    </div>
+
+    <div class="step step-upload">
+      <button onclick="uploadVideo()">Upload to YouTube</button>
+      <div id="uploadSuccess">✅ Your video has been successfully uploaded to YouTube!</div>
+    </div>
+
+    <div id="loader">Loading...</div>
+  </div>
+  <script src="/Static/js/script.js"></script>
+</body>
+</html>

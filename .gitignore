@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+venv/
+.env
+.env.*
+
+# Audio/Video Outputs
+assets/audio_local/
+assets/output/
+assets/temp_videos/
+Static/videos/
+*.mp3
+*.mp4
+*.wav
+
+# Thumbnails & Test Assets
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+thumbnail.*
+test.*
+*.bak
+
+# Secrets
+client_secrets.json
+token.json
+
+# VSCode & OS junk
+.vscode/
+.DS_Store_
