@@ -5,7 +5,7 @@
 ## 🔧 Features
 
 * ✅ Trending YouTube title generation from niche
-* 🧠 AI-powered script writing (OpenAI GPT-4)
+* 🧠 AI-powered script writing (GROQAPI)
 * 🎤 Voice-over generation (ElevenLabs TTS)
 * 🎞️ Video creation with subtitles and visuals
 * 🧠 SEO metadata optimization
